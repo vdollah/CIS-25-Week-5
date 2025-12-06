@@ -1,55 +1,34 @@
 #include <iostream>
-#include <fstream>
-#include <string>
 using namespace std;
 
-class Item {
-public:
+class Product {
+private:
+    int id;
     string name;
-    int quantity;
+    float price;
 
-    // Write item data to items.txt in the format: name,quantity
-    void saveToFile() {
-        ofstream out("items.txt");
-
-        if (out.is_open()) {
-            out << name << "," << quantity << endl;
-            out.close();
-            cout << "Item saved to file." << endl;
-        } else {
-            cout << "Unable to open file for writing." << endl;
-        }
+public:
+    // Constructor
+    Product(int i, string n, float p) : id(i), name(n), price(p) {
+        cout << "Constructor called\n";
     }
 
-    // Read and display data from items.txt
-    void loadFromFile() {
-        ifstream in("items.txt");
+    // Destructor
+    ~Product() {
+        cout << "Destructor called\n";
+    }
 
-        if (in.is_open()) {
-            string line;
-
-            while (getline(in, line)) {
-                cout << "File content: " << line << endl;
-            }
-
-            in.close();
-        } else {
-            cout << "Unable to open file for reading." << endl;
-        }
+    // Method to print details
+    void printDetails() {
+        cout << "ID: " << id
+             << ", Name: " << name
+             << ", Price: $" << price << endl;
     }
 };
 
 int main() {
-    Item tool;
-
-    tool.name = "Screwdriver";
-    tool.quantity = 10;
-
-    // Save data to file
-    tool.saveToFile();
-
-    // Load and display data from file
-    tool.loadFromFile();
+    Product item(10, "Water Bottle", 12.99);
+    item.printDetails();
 
     return 0;
 }
